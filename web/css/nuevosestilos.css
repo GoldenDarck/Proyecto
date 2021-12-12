@@ -1,0 +1,89 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8/12/2021, 06:47:04 PM
+    Author     : Hernan
+*/
+		
+.navegacion{
+    padding: 0;
+    margin: 0 auto;
+    background-color: #333;
+    
+}
+
+.navegacion ul{
+	list-style: none;
+}
+
+.menu > li{
+        position: relative;
+	display: inline-block;
+}
+
+.menu > li > a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding:10px 12px;
+    text-decoration: none;
+}
+
+
+.menu li a:hover:not(.active) {
+    color:white;
+    font-weight: bold;
+    text-decoration: underline;
+    background-color: #4CAF50;
+}
+
+/* Submenu*/
+
+.submenu{
+	
+	background: #333;
+	min-width:140px;
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+
+.submenu li a{
+	display: block;
+	padding: 14px 16px;
+	color: white;
+	font-family: 'Open sans';
+	text-decoration: none;
+}
+
+.menu li:hover .submenu{
+    visibility: visible;
+    opacity: 1;
+}
+.active {
+    background-color: #4CAF50;
+}
+
+.posicion{
+    float:right;
+}
+
+.banner{
+    height:100vh;	
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    animation: banner 15s infinite linear;
+}	
+.banner-body{
+    position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	font-family: 'poppinsregular';
+	text-align: center;
+}

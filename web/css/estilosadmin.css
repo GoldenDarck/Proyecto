@@ -1,0 +1,66 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    color:green;
+    font-weight: bold;
+    text-decoration: underline;
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+.posicion{
+    float:right;
+}
+
+.container{
+    clear:both;
+ float:left;
+ overflow:hidden;
+ width:100%;
+}
+
+
+.poss{
+    float:left;
+    position:relative;
+    right:50%;
+}
+.banner{
+    height:100vh;	
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    animation: banner 15s infinite linear;
+}	
+.banner-body{
+    position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	font-family: 'poppinsregular';
+	text-align: center;
+}
+
