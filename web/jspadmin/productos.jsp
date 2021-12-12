@@ -6,22 +6,32 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<% 
+    String usernombre = (String)session.getAttribute("usuario");
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/estilosadmin.css"/>
+        <link rel="stylesheet" type="text/css" href="css/nuevosestilos.css"/>
         <title>JSP Page</title>
     </head>
     <body>
-        <ul>
-                <li><a href="jspadmin/menuadmin.jsp">Menu</a></li>
-                <li><a href="adminservlet?action=ClientList">Clientes</a></li>
-                <li><a href="adminservlet?action=listUser">Personal</a></li>
-                <li><a class="active" href="adminservlet?action=listproductos">Productos</a></li>
-                <li class="posicion"><a href="logout.jsp"> Salir </a> </li>
-            </ul>
+        <nav class="navegacion">
+        <ul class="menu">
+                <li><a>FootInc</a></li>
+                <li> <a href="jspadmin/menuadmin.jsp">Menu</a></li>
+                <li> <a  href="adminservlet?action=ClientList">Clientes</a></li>
+                <li> <a  href="adminservlet?action=listUser">Personal</a></li>
+                <li> <a class="active" href="adminservlet?action=listproductos">Productos</a></li>
+        
+                    <li class="posicion"><a href="userservlet?action=perfil&userId=<%out.println(usernombre); %>"> <% out.println(usernombre); %> </a> 
+                    <ul class="submenu">
+                        <li> <a href="logout.jsp">Salir</a> </li>    
+                    </ul>
+                </li>
+                </ul>
+                </nav>
         <table border=1>
         <thead>
             <tr>
