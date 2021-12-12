@@ -24,7 +24,7 @@
                 <li><a>FootInc</a></li>
                 <li> <a class="active" href="jspchef/pedidosactivos.jsp">Pedidos Activos</a></li>
                 <li> <a  href="adminservlet?action=ClientList">Pedidos Pendientes</a></li>
-                <li> <a href="adminservlet?action=listUser">Pedidos Finalizados</a></li>
+                <li> <a href="adminservlet?action=listUser">Pedidos Finalizadosss</a></li>
                 <li> <a href="adminservlet?action=listproductos">Productos</a></li>
         
                     <li class="posicion"><a href="userservlet?action=perfil&userId=<%out.println(usernombre); %>"> <% out.println(usernombre); %> </a> 
