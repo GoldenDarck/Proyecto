@@ -65,6 +65,7 @@ public class userDAO {
             preparedStatement.setString(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
+                user.setUrl_img(rs.getNString("url_img"));
                 user.setUsuario(rs.getString("usuario"));
                 user.setPassword(rs.getString("contraseña"));
                 user.setNombre(rs.getString("nombre"));
@@ -76,4 +77,38 @@ public class userDAO {
         }
        return user;
      }
+    
+    public boolean addUimguser(String archivo, String user) 
+    {
+        try{        
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET url_img=? WHERE usuario =?;");
+            preparedStatement.setString(1, archivo);
+            preparedStatement.setString(2,user);
+            ;
+            if(preparedStatement.executeUpdate() ==1)
+            {
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+            return false;
+    }
+    
+    public String getImagenId(int urlId) {        
+        String urlImagen=null;//variable local temporal
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select url from prueba where id_img = ?;");
+            preparedStatement.setInt(1, urlId);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+               urlImagen = rs.getString("url");               
+            }
+        } catch (SQLException e) {
+           e.printStackTrace();
+        }
+       return urlImagen;
+     }
+    
 }

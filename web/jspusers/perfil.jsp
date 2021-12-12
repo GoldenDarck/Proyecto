@@ -39,17 +39,11 @@
             </ul>
         </nav> 
     <center>
-        <h2 aling="center"> Mi perfil </h2>
-        <form method="post" action='UploadServlet' enctype="multipart/form-data" name="action">
-            <img src=${prod.url_img} alt=""  width="200" height="200"/> <br>
-            Subir Foto:
-            <input type="file" name="file" size="60"/>
-            <br>                     
-            <input type="button" value="Guardar Foto" /> 
-        </form>
+        <h2 > Mi perfil </h2>
+        <a href="UploadServlet?action=imperfil&userId=<%out.println(usernombre); %>"> <img src=${user.url_img} alt=""  width="200" height="200"/></img></a>
             
         <form method="POST" action='userservlet' name="frmeditperfil">
-             <input type="hidden" name="action" value="modificaru"/>
+                <input type="hidden" name="action" value="modificaru"/>
                 <table border="0" width="500" cellpadding="3" aling="center">
                         <tr>
                             <th> Usuario </th>

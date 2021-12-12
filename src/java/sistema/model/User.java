@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Hernan
  */
 public class User {
-    String usuario, password,nombre,a_paterno , a_materno;
+    String usuario, password,nombre,a_paterno , a_materno,url_img;
     int id_user,rol ; 
     boolean staatus;
     
@@ -80,6 +80,14 @@ public class User {
 
     public void setStaatus(boolean staatus) {
         this.staatus = staatus;
+    }
+
+    public String getUrl_img() {
+        return url_img;
+    }
+
+    public void setUrl_img(String url_img) {
+        this.url_img = url_img;
     }
     
     

@@ -31,6 +31,7 @@ import sistema.dao.userDAO;
 @WebServlet
 public class userservlet extends HttpServlet {
     private static String PERFIL = "/jspusers/perfil.jsp";
+    private static final String SAVE_DIR = "imagenes";
     private userDAO udao;
     
     public userservlet(){
@@ -72,9 +73,9 @@ public class userservlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         if (action.equalsIgnoreCase("perfil")){
-            forward = PERFIL;
             String userId = request.getParameter("userId");
             User user = udao.getUser(userId);
+            forward = PERFIL;
             request.setAttribute("user", user);
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
@@ -119,9 +120,8 @@ public class userservlet extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher(PERFIL);
             request.setAttribute("user", udao.getUser(userid));
             view.forward(request, response);    
-        }
+        } 
     }
-
     /**
      * Returns a short description of the servlet.
      *

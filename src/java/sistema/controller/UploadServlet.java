@@ -18,7 +18,9 @@ import javax.servlet.http.Part;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.MultipartConfig;
 import sistema.dao.VAdminDAO;
+import sistema.model.User;
 import sistema.model.productos;
+import sistema.dao.userDAO;
 /**
  * Sintaxis de la annotation de webservlet
  * @WebServlet(
@@ -44,16 +46,21 @@ public class UploadServlet extends HttpServlet {
 
     //almacenar el nombre del archivo 
     String fileNameUploaded = null; 
+    String usname = null;
     String prodname = null;
+    int cont = 0;
     private static String LIST_PRODUCTS = "/jspadmin/productos.jsp";
+    private static String PERFIL = "/jspusers/perfil.jsp";
     private static String upImg = "/uploads.jsp";
     private static final String SAVE_DIR = "imagenes"; //carpeta donde se guardaran los archivos
     //crear un objeto DAO para ejecutar querys del UPLOAD
     private VAdminDAO upObj;//crear un objetos de tipo DAO para realizar algunos querys
+    private userDAO udao;
     public UploadServlet()
     {
         super();//invocar métodos de la clase padre
-        upObj = new VAdminDAO();//crear objetos de tipo AdminDAO
+        upObj = new VAdminDAO();
+    udao = new userDAO();//crear objetos de tipo AdminDAO
     }
     
     @Override
@@ -89,12 +96,21 @@ public class UploadServlet extends HttpServlet {
             //fusionar el nombre de la carpeta + nombre-archivo
             String nombreArchivo = SAVE_DIR + "/" + fileNameUploaded;
             //String proid = request.getParameter("name");  
-            upObj.addURLfromImageName(nombreArchivo,prodname);
-        
-            request.setAttribute("message", "Upload has been done successfully!  " + savePath + "/" +fileNameUploaded);
-            RequestDispatcher view = request.getRequestDispatcher(LIST_PRODUCTS);
-            request.setAttribute("users", upObj.getAllproductos());
-            view.forward(request, response);
+            if (cont == 1){
+                upObj.addURLfromImageName(nombreArchivo,prodname);
+                request.setAttribute("message", "Upload has been done successfully!  " + savePath + "/" +fileNameUploaded);
+                RequestDispatcher view = request.getRequestDispatcher(LIST_PRODUCTS);
+                request.setAttribute("users", upObj.getAllproductos());
+                view.forward(request, response);
+            } else if(cont == 2){
+                udao.addUimguser(nombreArchivo,usname);
+                request.setAttribute("message", "Upload has been done successfully!  " + savePath + "/" +fileNameUploaded);
+                RequestDispatcher view = request.getRequestDispatcher(PERFIL);
+                request.setAttribute("user", udao.getUser(usname));
+                view.forward(request, response);
+            }
+            
+            
         //}else if (action.equalsIgnoreCase("buscarimg"))        
         //{
 /*           int  imgID = Integer.parseInt(request.getParameter("imageid"));            
@@ -139,10 +155,19 @@ public class UploadServlet extends HttpServlet {
         }else if(action.equalsIgnoreCase("subirimg")){ 
             
             String proId = request.getParameter("prodId");
-            prodname =proId;
+            prodname =proId;cont=1;
             productos pro = upObj.getProductoById(proId);
             forward = upImg;
             request.setAttribute("producto", pro);
+            
+        }else if(action.equalsIgnoreCase("imperfil")){ 
+            
+            String userId = request.getParameter("userId");
+            usname =userId;cont=2;
+            User user = udao.getUser(userId);
+            forward = upImg;
+            request.setAttribute("user", user);
+            
         }else{
             forward = LIST_PRODUCTS;
             
