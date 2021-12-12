@@ -6,12 +6,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
+<% 
+    String usernombre = (String)session.getAttribute("usuario");
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
+        
+        <nav class="navegacion">
+        <ul class="menu">
+                <li><a>FootInc</a></li>
+                <li> <a href="jspadmin/menuadmin.jsp">Menu</a></li>
+                <li> <a class="active" href="adminservlet?action=ClientList">Clientes</a></li>
+                <li> <a href="adminservlet?action=listUser">Personal</a></li>
+                <li> <a href="adminservlet?action=listproductos">Productos</a></li>
+        
+                    <li class="posicion"><a href="userservlet?action=perfil&userId=<%out.println(usernombre); %>"> <% out.println(usernombre); %> </a> 
+                    <ul class="submenu">
+                        <li> <a href="logout.jsp">Salir</a> </li>    
+                    </ul>
+                </li>
+                </ul>
+                </nav>
+        
         <form method="POST" action='adminservlet' enctype="multipart/form-data" >
              <input type="hidden" name="action" value="modp"/>
             <% String action = request.getParameter("action");

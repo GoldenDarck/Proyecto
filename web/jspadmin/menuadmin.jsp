@@ -25,15 +25,22 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <nav> 
-            <ul>
-                <li><a class="active" href="jspadmin/menuadmin.jsp">Menu</a></li>
-                <li><a href="adminservlet?action=ClientList">Clientes</a></li>
-                <li><a href="adminservlet?action=listUser">Personal</a></li>
-                <li><a href="adminservlet?action=listproductos">Productos</a></li>
-                <li class="posicion"><a href="logout.jsp"> Salir </a> </li>
-            </ul>
-        </nav>
+        
+        <nav class="navegacion">
+        <ul class="menu">
+                <li><a>FootInc</a></li>
+                <li> <a href="jspadmin/menuadmin.jsp">Menu</a></li>
+                <li> <a class="active" href="adminservlet?action=ClientList">Clientes</a></li>
+                <li> <a href="adminservlet?action=listUser">Personal</a></li>
+                <li> <a href="adminservlet?action=listproductos">Productos</a></li>
+        
+                    <li class="posicion"><a href="userservlet?action=perfil&userId=<%out.println(usernombre); %>"> <% out.println(usernombre); %> </a> 
+                    <ul class="submenu">
+                        <li> <a href="logout.jsp">Salir</a> </li>    
+                    </ul>
+                </li>
+                </ul>
+                </nav>
      
         <h1>Datos relacionada al usuario</h1><br/>
         <%
