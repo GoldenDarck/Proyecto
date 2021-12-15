@@ -24,7 +24,7 @@
                 <li> <a href="servletmenu?action=pfuerte" >Plato fuerte </a></li>
                 <li> <a class="active" href="servletmenu?action=postres" >Postres</a></li>
                 <li> <a href="servletmenu?action=bebida" >Bebidas</a></li>
-                <li> <a href="comprar.jsp" > <img src="imagenes/carrito.jpg"  height="35px" width="35px" aria-haspopup="true" aria-expanded="false"></img></a>
+                <li> <a href="carritoservlet?action=carrito&userId=<%out.println(usernombre); %>"  > <img src="imagenes/carrito.jpg"  height="35px" width="35px" aria-haspopup="true" aria-expanded="false"></img></a>
                 <% 
                     if (usernombre!=null){
                         
@@ -50,9 +50,10 @@
                     <c:out value="${pro.nombre}"/><br> 
                     <c:out value="${pro.precio}"/><p>
                     <input type="hidden" name="action" />
-                    <a href="carritoservlet?action=comprar&proId=<c:out value="${pro.nombre}"/>"> 
+                    <a href="carritoservlet?action=comprar&proId=<c:out value="${pro.nombre}"/>&userId=<%out.println(usernombre); %>"> 
                         <input type="button" value="Comprar" />  
                     </a> 
+                      
                 </th>
                 <%
                     salto++;
@@ -66,6 +67,5 @@
                     %>
                 </c:forEach>
                 </table>
-                
     </body>
 </html>

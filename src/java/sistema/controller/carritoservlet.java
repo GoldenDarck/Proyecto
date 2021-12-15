@@ -19,7 +19,8 @@ import sistema.model.productos;
 import sistema.model.comanda;
 import sistema.dao.menuDAO;
 import sistema.dao.carritoDAO;
-
+import sistema.model.User;
+import sistema.model.venta;
 /**
  *
  * @author Hernan
@@ -29,11 +30,18 @@ public class carritoservlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private static String VERPROD = "carta/compras.jsp";
+    private static String  DESAYUNOS = "carta/menu.jsp";
+    private static String  CARRITO = "carta/carrito.jsp";
+    private static String  MENSAJE= "jspusers/mensaje.jsp";
     private carritoDAO cmt;
+    private menuDAO dao;
+    
+    
     
     public carritoservlet()
     {
-        cmt =new carritoDAO();
+       cmt =new carritoDAO();
+        dao = new menuDAO();
     }
     
     
@@ -72,11 +80,55 @@ public class carritoservlet extends HttpServlet {
             productos pro = cmt.getProductoById(proId);
             request.setAttribute("prod", pro);
             
-        }
+            String userId = request.getParameter("userId");
+            User user = cmt.getUserById(userId);
+            request.setAttribute("user", user);
+            
+        } else if (action.equalsIgnoreCase("carrito")){
+            forward = CARRITO;
+            String userId = request.getParameter("userId");
+            User user = cmt.getUserById(userId);
+            int totalv = cmt.totalventa(user);
+            request.getSession().setAttribute("totalv", totalv);
+            request.setAttribute("comanda", cmt.getAllcomandas(user));
+        }else if (action.equalsIgnoreCase("cancel")){
+            forward = CARRITO;
+            int comId = Integer.parseInt(request.getParameter("comId"));
+            comanda comanda = cmt.getComandaById(comId);
+            String userId = request.getParameter("userId");
+            User user = cmt.getUserById(userId);
+            
+            int status = cmt.cancelcomanda(comanda);
+            
+            if(status == 1){
+                
+                int subtotal = cmt.totalcomanda(comanda);
+                int total = cmt.totalventa(user);
+                venta t = new venta();
+                total = total - subtotal;
+                t.setTotal_v(total);
+                cmt.updatetotal(t,user);
+                
+                int totalv = cmt.totalventa(user);
+                
+                request.getSession().setAttribute("totalv", totalv);
+                request.setAttribute("comanda", cmt.getAllcomandas(user));
+                
+            }else{
+                request.setAttribute("message", "No se pudo eliminar el registro ");
+                RequestDispatcher view = request.getRequestDispatcher(forward);
+                view.forward(request, response);
+            }
+        }else if (action.equalsIgnoreCase("fcompra")){
+                forward = MENSAJE; 
+                String userId = request.getParameter("userId");
+                User user = cmt.getUserById(userId);
+                cmt.terminarv(user);
+            }
+        
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -91,15 +143,50 @@ public class carritoservlet extends HttpServlet {
         String forward="";
         String action = request.getParameter("action");
         
-        if (action.equalsIgnoreCase("carrito")){
-            comanda com = new comanda();
-            int id = Integer.parseInt(request.getParameter("idprod"));
+        if (action.equalsIgnoreCase("addcarrito")){
+            User user = new User();
+            int iduser = Integer.parseInt(request.getParameter("user"));
+            user.setId_user(iduser);
+            String userid = request.getParameter("user");
+            
+            int id_prod = Integer.parseInt(request.getParameter("id"));
             int cant = Integer.parseInt(request.getParameter("cantidad"));
-            int total = Integer.parseInt(request.getParameter("total"));
-            com.setId_producto(id);
+            int precio = Integer.parseInt(request.getParameter("precio"));
+            
+            int total=0;
+            total = cant * precio;
+            
+            comanda com = new comanda();
+            com.setId_producto(id_prod);
             com.setCantidad(cant);
-            com.setSubtotal(0);
-            com.setSubtotal(total);
+            com.setMesa(request.getParameter("mesa"));
+            com.setTotal(total);
+            
+            
+            if(cmt.checkVenta(user)){
+                int idventa = cmt.getVentaById(user);
+                cmt.addCarrito(idventa,com);
+                int subtotal = cmt.totalventa(user);
+                venta t = new venta();
+                total = total + subtotal;
+                t.setTotal_v(total);
+                cmt.updatetotal(t,user);
+            }else {
+                int crearvta = cmt.addVenta(user);
+                if(crearvta == 1){
+                    int idventa = cmt.getVentaById(user);
+                    cmt.addCarrito(idventa,com);
+                    int subtotal = cmt.totalventa(user);
+                    venta t = new venta();
+                    total = total + subtotal;
+                    t.setTotal_v(total);
+                    cmt.updatetotal(t,user);
+                }
+                
+            }
+            RequestDispatcher view = request.getRequestDispatcher(DESAYUNOS);
+            request.setAttribute("desayunos", dao.getAlldesayunos());
+            view.forward(request, response);
         }
     }
 

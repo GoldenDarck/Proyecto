@@ -11,31 +11,34 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
-import java.text.ParseException;
-import javax.servlet.RequestDispatcher;
 
+import java.io.File;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
+
+import sistema.model.User;
 import sistema.model.productos;
-import sistema.dao.menuDAO;
+import sistema.dao.VAdminDAO;
+import sistema.dao.chefDAO;
 
 /**
  *
  * @author Hernan
  */
 @WebServlet
-public class servletmenu extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    private static String  DESAYUNOS = "carta/menu.jsp";
-    private static String  PFUERTE = "carta/pfuerte.jsp";
-    private static String  BEBIDAS = "carta/bebidas.jsp";
-    private static String  POSTRES = "carta/postres.jsp";
-    private menuDAO dao;
+public class chefservlet extends HttpServlet {
+    private static String PPENDIENTES = "/jspchef/pendientes.jsp";
+    private static String PACTIVOS = "/jspchef/pedidosactivos.jsp";
+    private static String PFINALIZADOS = "/jspchef/pedidosfinalizados.jsp";
+    //private static String LIST_PRODUCTS = "/jspadmin/productos.jsp";
+    //private static String LIST_CLIENTS = "/jspadmin/clientes.jsp";
+    private chefDAO dao;
     
-    public servletmenu()
-    {
-        dao = new menuDAO();
+    public chefservlet(){
+        dao = new chefDAO();
     }
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -62,21 +65,19 @@ public class servletmenu extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String forward="";
         String action = request.getParameter("action");
-        if (action.equalsIgnoreCase("desayunos")){
-            forward = DESAYUNOS;
-            request.setAttribute("desayunos", dao.getAlldesayunos());            
-        } else if(action.equalsIgnoreCase("pfuerte")){
-            forward = PFUERTE;
-            request.setAttribute("fuerte", dao.getAllpprincipal());
-        }else if(action.equalsIgnoreCase("postres")){
-            forward = POSTRES ;
-            request.setAttribute("postre", dao.getAllpostres());
-        }
-        else if(action.equalsIgnoreCase("bebida")){
-            forward = BEBIDAS;
-            request.setAttribute("bebidas", dao.getAllbebidas());
+        
+        if (action.equalsIgnoreCase("pactivos")){
+            forward = PACTIVOS;
+            request.setAttribute("activos", dao.getAllActivos());            
+        }else if (action.equalsIgnoreCase("ppendientes")){
+            forward = PPENDIENTES;
+            request.setAttribute("pend", dao.getAllActivos());            
+        }else if (action.equalsIgnoreCase("pfinalizados")){
+            forward = PFINALIZADOS;
+            request.setAttribute("finaly", dao.getAllFinalizados());            
         }
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
@@ -93,9 +94,7 @@ public class servletmenu extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+        processRequest(request, response);
     }
 
     /**

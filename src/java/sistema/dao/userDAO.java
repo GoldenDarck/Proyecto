@@ -84,7 +84,7 @@ public class userDAO {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET url_img=? WHERE usuario =?;");
             preparedStatement.setString(1, archivo);
             preparedStatement.setString(2,user);
-            ;
+            
             if(preparedStatement.executeUpdate() ==1)
             {
                 return true;

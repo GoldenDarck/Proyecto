@@ -28,6 +28,10 @@
         <servlet-name>userservlet</servlet-name>
         <servlet-class>sistema.controller.userservlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>chefservlet</servlet-name>
+        <servlet-class>sistema.controller.chefservlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>controlAdmin</servlet-name>
         <url-pattern>/controlAdmin</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>userservlet</servlet-name>
         <url-pattern>/userservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>chefservlet</servlet-name>
+        <url-pattern>/chefservlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

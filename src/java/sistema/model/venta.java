@@ -10,8 +10,8 @@ import java.text.DateFormat;
  *
  * @author Hernan
  */
-public class venta {
-    int id_venta, id_cliente, total, usuario_registra;
+public class venta extends comanda{
+    int id_venta, id_cliente, total_v, usuario_registra;
     Date f_creacion,f_cierre;
     Boolean status_abierta,cancelada;	
     
@@ -33,14 +33,13 @@ public class venta {
         this.id_cliente = id_cliente;
     }
 
-    public int getTotal() {
-        return total;
+    public int getTotal_v() {
+        return total_v;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setTotal_v(int total_v) {
+        this.total_v = total_v;
     }
-
     public int getUsuario_registra() {
         return usuario_registra;
     }

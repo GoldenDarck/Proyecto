@@ -29,8 +29,8 @@
         <nav class="navegacion">
         <ul class="menu">
                 <li><a>FootInc</a></li>
-                <li> <a href="jspadmin/menuadmin.jsp">Menu</a></li>
-                <li> <a class="active" href="adminservlet?action=ClientList">Clientes</a></li>
+                <li> <a class="active" href="jspadmin/menuadmin.jsp">Menu</a></li>
+                <li> <a href="adminservlet?action=ClientList">Clientes</a></li>
                 <li> <a href="adminservlet?action=listUser">Personal</a></li>
                 <li> <a href="adminservlet?action=listproductos">Productos</a></li>
         

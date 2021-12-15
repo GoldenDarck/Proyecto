@@ -10,7 +10,7 @@ import java.text.DateFormat;
  *
  * @author Hernan
  */
-public class comanda {
+public class comanda extends productos{
     int id_comanda,id_venta, id_producto,usuario_reg, cantidad, subtotal, descuentp,total;
     Date fecha_reg;	
     String mesa;							

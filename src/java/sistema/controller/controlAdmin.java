@@ -123,15 +123,15 @@ public class controlAdmin extends HttpServlet {
                         String usuario = request.getParameter("username");
                         String contraseña = request.getParameter("password");
                         
-                        User u = new User();
-                        u.setNombre(Nombre);
-                        u.setA_paterno(apellidop);
-                        u.setA_materno(apellidom);
-                        u.setUsuario(usuario);
-                        u.setPassword(contraseña);
+                        User us = new User();
+                        us.setNombre(Nombre);
+                        us.setA_paterno(apellidop);
+                        us.setA_materno(apellidom);
+                        us.setUsuario(usuario);
+                        us.setPassword(contraseña);
                         
                      try{
-                         admin.registrarUser(u);
+                         admin.registrarUser(us);
                      }catch (ClassNotFoundException ex ){
                             ex.printStackTrace();
                         }

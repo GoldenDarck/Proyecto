@@ -154,11 +154,11 @@ public class Admindao {
     
     public int registrarUser (User user) throws ClassNotFoundException
     {
-        int result=0;
+        int regus=0;
         try {
             PreparedStatement pstm =null;
             ResultSet rs =null;
-            String query = ("INSERT INTO users (usuario, contraseña, nombre, a_paterno, a_materno,rol,staatus) VALUES (?, ?, ?, ?,?,?,?)");
+            String query = ("INSERT INTO users (usuario, contraseña, nombre, a_paterno, a_materno,url_img,rol,staatus) VALUES (?, ?, ?, ?,?,?,?,?)");
             pstm =con.prepareStatement(query);
             //pstm.setInt(1, 1);
             pstm.setString(1, user.getUsuario());
@@ -166,17 +166,18 @@ public class Admindao {
             pstm.setString(3, user.getNombre());
             pstm.setString(4, user.getA_paterno());
             pstm.setString(5, user.getA_materno());
-            pstm.setInt(6, 4);
-            pstm.setInt(7, 1);
+            pstm.setString(6, "");
+            pstm.setInt(7, 4);
+            pstm.setInt(8, 1);
             
             System.out.println(pstm);
-            result=pstm.executeUpdate();
+            regus=pstm.executeUpdate();
     
         }catch(SQLException ex)
         {
            ex.printStackTrace();
         }
-        return result;
+        return regus;
     }
     
     public persona getPersona(String nombre)
